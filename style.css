@@ -1,0 +1,310 @@
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+@media (max-width: 800px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+
+#animated-text {
+    position: absolute;
+    top: 20%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    font-family: 'Press Start 2P', monospace;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    text-transform: uppercase;
+    /* Evita que el texto se divida en varias líneas */
+    overflow: hidden; /* Oculta las letras que aún no han aparecido */
+    border-right: 3px solid white; /* Simula el cursor de escritura */
+    padding-right: 5px;
+    animation: blinkCursor 0.7s infinite;
+}
+
+/* Parpadeo del cursor */
+@keyframes blinkCursor {
+    50% {
+        border-color: transparent;
+    }
+}
+#animated-text-2 {
+    position: absolute;
+    top: 70%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    font-family: 'Press Start 2P', monospace;
+    color: white;
+    font-size: 15px;
+    text-transform: uppercase;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    overflow: hidden; /* Oculta las letras que aún no han aparecido */
+    border-right: 3px solid white; /* Simula el cursor de escritura */
+    padding-right: 5px;
+    animation: blinkCursor 0.7s infinite;
+}
+
+/*  Carga de fuente personalizada */
+@font-face {
+    font-family: 'fuente';
+    src: url('assets/fonts/PixelifySans-VariableFont_wght.ttf');
+}
+
+/* Estilos generales del body */
+body {
+    background: #ffffff;
+    font-family: 'fuente', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto; /* asegúrate de que el scroll vertical funcione normalmente */
+    height: auto;      /* ← importante */
+}
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 80px 50px 20px 50px; /* top, right, bottom, left */
+    width: 100%;
+    height: auto; 
+}
+
+
+#map {
+    
+    flex: none; /* Evita que el mapa crezca demasiado */
+    width: 70vw; /* Ajusta el ancho al 70% del viewport */
+    height: 90vh; /* Hace que no ocupe toda la altura */
+    min-height: 400px; /* Altura mínima para que no se vea muy pequeño */
+    background-color: #e0e0e0;
+    border-radius: 8px; /* Bordes redondeados para un mejor diseño */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+}
+
+
+
+/*  Barra de navegación fija */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start; 
+    padding-left: 70px;
+    gap: 50px;                   
+    border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+}
+
+.navbar button {
+    display: flex;
+    color: rgb(0, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    background-color: transparent;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    z-index: 1200;
+
+}
+.navbar button:active {
+    filter: blur(1.5px); 
+    opacity: 0.7;         /* (Opcional) combina borroso + desvanecido */
+    transform: scale(0.98); /* (Opcional) da sensación de profundidad */
+}
+.navbar button:hover {
+    filter: blur(2.5px);
+}
+
+
+.sidebar {
+    position: relative;
+    width: 350px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    margin-top: 140px; /* Baja la caja */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: fit-content; /* ← Clave para evitar estiramientos innecesarios */
+}
+
+
+/* Barra de búsqueda */
+#searchBox {
+    width: 100%;
+    padding: 8px 10px; /* Más compacto */
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+/* Botón de búsqueda */
+#searchBtn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background: transparent;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease;
+}
+
+#searchBtn:hover,
+#searchBtn:active {
+        background: none;
+        filter: blur(2px);
+        transition: filter 0.2s ease;
+}
+
+/*  Street View */
+#street-view {
+    width: 100%;
+    height: 300px; /* Ajusta la altura */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+/* Botón "Añadir Ubicación" */
+#addLocationBtn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background:transparent;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease;
+    margin-top: 10px; /* Espaciado arriba */
+}
+
+#addLocationBtn:hover {
+    background: transparent; 
+}
+.house-confetti {
+    position: fixed;
+    font-size: 30px;
+    animation: fall 1.5s linear forwards;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/*  Estilos para la ventana emergente */
+
+#saveNoteBtn:hover {
+    background-color: #1a3f6e;
+}
+/*  Estilo del botón "Eliminar Última Ubicación" */
+#removeLastMarkerBtn {
+    width: 300px; /* Misma anchura que la sidebar */
+    padding: 10px;
+    font:'Press Start 2P', monospace;
+    font-size: 16px;
+    background: transparent; 
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease;
+    display: block; /* Asegura que sea un bloque y ocupe toda la línea */
+    margin: 20px auto; /* Lo centra horizontalmente */
+    text-align: center;
+}
+
+#removeLastMarkerBtn:hover,
+#removeLastMarkerBtn:active {
+    background: none;
+    filter: blur(5px);
+    transition: filter 0.2s ease;
+}
+
+.modal {
+    display: none; /* Oculta la ventana al inicio */
+    position: fixed;
+    z-index: 2000; /* Asegura que esté encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; /* Fondo oscuro traslúcido */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenido de la ventana */
+.modal-content {
+    position: relative; /* ← Necesario para que el botón se posicione respecto a este */
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Cambiado de 20px a 10px para alinearse mejor */
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/*  Campo de entrada */
+#noteInput {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #26589F;
+    border-radius: 5px;
+}
+
+/* Botón de guardar */
+#saveNoteBtn {
+    background-color: #26589F;
+    color: white;
+    font-size: 14px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
