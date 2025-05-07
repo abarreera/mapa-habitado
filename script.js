@@ -61,7 +61,31 @@ async function initMap() {
       zoom: 12,
       mapId: "6bf319749ec8b051"
   });
-  
+
+    import { onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+const markersRef = window.firebaseRef(window.firebaseDB, "markers");
+
+onValue(markersRef, (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+        const data = childSnapshot.val();
+
+        const marker = new google.maps.Marker({
+            position: { lat: data.lat, lng: data.lng },
+            map: map,
+            title: data.name,
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+            content: `<strong>${data.name}</strong><br><p>${data.note}</p>`,
+        });
+
+        marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+        });
+    });
+});
+
 
   function createMarker(position, label, title, content) {
       const marker = new google.maps.Marker({
@@ -92,6 +116,7 @@ async function initMap() {
         console.error("Error: No se encontró el contenedor `#street-view`.");
         return;
     }
+      
 
     //  Inicializar Street View sin ubicación inicial
     const panorama = new google.maps.StreetViewPanorama(streetViewElement, {
@@ -246,6 +271,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert("No se añadió ninguna nota.");
                         return;
                     }
+                    const db = window.firebaseDB;
+const ref = window.firebaseRef;
+const push = window.firebasePush;
+
+const markersRef = ref(db, "markers");
+push(markersRef, {
+    lat: tempLocation.location.lat(),
+    lng: tempLocation.location.lng(),
+    name: tempLocation.name,
+    note: userNote
+});
+
 
                     // 📍 Añadir el nuevo marcador y almacenarlo en `lastAddedMarker`
                     lastAddedMarker = new google.maps.Marker({
