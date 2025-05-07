@@ -1,57 +1,11 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Inicializa la animación de texto si hay elementos con ID "animated-text" o "animated-text-2"
-    if (document.getElementById("animated-text")) {
-        startTypingEffect("animated-text", ["Explora el mapa a través de tu propia habitabilidad"]);
-    }
-  
-    if (document.getElementById("animated-text-2")) {
-        startTypingEffect("animated-text-2", ["La vida real es solo una ventana más"]);
-    }
-  
-    // Inicializa el mapa solo si está en la página del mapa
-    if (document.getElementById("map")) {
-        initMap();
-    }
-  });
-  
-  /* 🔹 Función para animación de escritura */
-  function startTypingEffect(elementId, messages) {
-    const textElement = document.getElementById(elementId);
-    let index = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-  
-    function typeEffect() {
-        const currentMessage = messages[index];
-  
-        if (isDeleting) {
-            textElement.textContent = currentMessage.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            textElement.textContent = currentMessage.substring(0, charIndex + 1);
-            charIndex++;
-        }
-  
-        let speed = isDeleting ? 50 : 100;
-        if (!isDeleting && charIndex === currentMessage.length) {
-            speed = 2500;
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            index = (index + 1) % messages.length;
-            speed = 1000;
-        }
-  
-        setTimeout(typeEffect, speed);
-    }
-  
-    typeEffect();
-  }
+
 /*  Código para el mapa */
 let map;
 let activeInfoWindow = null;
 let addedMarkers = [];
 let lastAddedMarker =null;
+let tempLocation = null;
+
 
 async function initMap() {
   const { Map, places } = await google.maps.importLibrary("maps");
@@ -219,11 +173,13 @@ document.addEventListener("DOMContentLoaded", function () {
   modal.style.display = "none";
 
   // Al hacer clic en "Añadir Ubicación"
+  
   document.getElementById("addLocationBtn").addEventListener("click", function () {
     const input = document.getElementById("searchBox").value;
     if (!input) return alert("Escribe una dirección primero.");
 
     const searchService = new google.maps.places.PlacesService(map);
+    const modal = document.getElementById("customModal"); // ✅ aquí definimos modal
 
     searchService.findPlaceFromQuery(
         {
@@ -235,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const location = results[0].geometry.location;
                 const name = results[0].name;
 
-                let tempLocation = { location, name };
+                tempLocation = { location, name };
 
                 modal.style.display = "flex";
 
@@ -247,7 +203,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         return;
                     }
 
-                    // 📍 Añadir el nuevo marcador y almacenarlo en `lastAddedMarker`
+                    guardarUbicacionEnFirebase(
+                        tempLocation.location.lat(),
+                        tempLocation.location.lng(),
+                        tempLocation.name,
+                        userNote
+                    );
+
                     lastAddedMarker = new google.maps.Marker({
                         position: tempLocation.location,
                         map: map,
@@ -277,6 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
   // Cerrar la ventana emergente al hacer clic en la "X"
   closeBtn.addEventListener("click", function () {
       modal.style.display = "none";
@@ -290,25 +253,7 @@ document.getElementById("removeLastMarkerBtn").addEventListener("click", functio
 });
 
 
-function saveLocation(name, lat, lng, note) {
-  const imageUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=15&size=400x300&markers=color:red%7C${lat},${lng}&key=AIzaSyBVY02QDmfubvjexmPNj0P1oCefwD6ffkE`;
 
-  // Crear objeto de ubicación
-  const locationData = {
-      name: name,
-      lat: lat,
-      lng: lng,
-      note: note,
-      image: imageUrl
-  };
-
-  // Obtener datos previos de LocalStorage y añadir el nuevo
-  let locations = JSON.parse(localStorage.getItem("locations")) || [];
-  locations.push(locationData);
-  localStorage.setItem("locations", JSON.stringify(locations));
-
-  
-}
 
 
 /*  Conectar botones de navegación */
@@ -337,3 +282,71 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Inicializa la animación de texto si hay elementos con ID "animated-text" o "animated-text-2"
+    if (document.getElementById("animated-text")) {
+        startTypingEffect("animated-text", ["Explora el mapa a través de tu propia habitabilidad"]);
+    }
+  
+    if (document.getElementById("animated-text-2")) {
+        startTypingEffect("animated-text-2", ["La vida real es solo una ventana más"]);
+    }
+  
+    // Inicializa el mapa solo si está en la página del mapa
+    if (document.getElementById("map")) {
+        initMap();
+    }
+  });
+  
+  /* 🔹 Función para animación de escritura */
+  function startTypingEffect(elementId, messages) {
+    const textElement = document.getElementById(elementId);
+    let index = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+  
+    function typeEffect() {
+        const currentMessage = messages[index];
+  
+        if (isDeleting) {
+            textElement.textContent = currentMessage.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            textElement.textContent = currentMessage.substring(0, charIndex + 1);
+            charIndex++;
+        }
+  
+        let speed = isDeleting ? 50 : 100;
+        if (!isDeleting && charIndex === currentMessage.length) {
+            speed = 2500;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            index = (index + 1) % messages.length;
+            speed = 1000;
+        }
+  
+        setTimeout(typeEffect, speed);
+    }
+  
+    typeEffect();
+  }
+  //  guardar en base de datos
+function guardarUbicacionEnFirebase(lat, lng, name, note) {
+    const db = window.firebaseDB;
+    const ref = window.firebaseRef;
+    const push = window.firebasePush;
+
+    const markersRef = ref(db, "markers");
+    push(markersRef, {
+        lat: lat,
+        lng: lng,
+        name: name,
+        note: note
+    }).then(() => {
+        console.log("Ubicación guardada en Firebase:", { lat, lng, name, note });
+    }).catch((error) => {
+        console.error("Error al guardar en Firebase:", error);
+    });
+   
+}
