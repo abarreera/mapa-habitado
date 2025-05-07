@@ -7,78 +7,85 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Fondo con puntos -->
-    <div class="dotted-background-2"></div>
+     <!-- Fondo con puntos -->
+     <div class="dotted-background-2"></div>
+     
 
-    <!-- Barra de navegación con los botones -->
+    <!--  Barra de navegación con los botones -->
     <nav class="navbar">
         <button id="btnLocation1">València</button>
         <button id="btnLocation2">Madrid</button>
         <button id="btnGlobalView">Global</button>
     </nav>
+    
 
     <!-- Contenedor principal del mapa -->
     <div class="container">
         <div id="map"></div>
-
-        <!-- Contenedor derecho (Búsqueda + Street View) -->
+    
+        <!--  Contenedor derecho (Búsqueda y Street View) -->
         <div class="sidebar">
+            <!-- Barra de búsqueda -->
             <input type="text" id="searchBox" placeholder="Buscar dirección...">
             <button id="searchBtn">Busca un lugar</button>
+    
+            <!-- Street View -->
             <div id="street-view"></div>
+    
             <button id="addLocationBtn">Añadelo al mapa</button>
             <button id="removeLastMarkerBtn">Elimina la última ubicación</button>
         </div>
     </div>
 
-    <!-- Modal para añadir nota -->
+
+
     <div id="customModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <h2>Añadir una nota</h2>
+            <h2> Añadir una nota</h2>
             <input type="text" id="noteInput" placeholder="Escribe aquí...">
             <button id="saveNoteBtn">Guardar</button>
         </div>
     </div>
+     <!-- Texto animado -->
+     <div id="animated-text" class="hidden-text">
+      
+     </div>
+     <div id="animated-text-2" class="hidden-text">
+       
+     </div>
+      <!-- API de Google Maps -->
+      <script src="https://maps.googleapis.com/maps/api/js?key= AIzaSyBVY02QDmfubvjexmPNj0P1oCefwD6ffkE&libraries=places"></script>
+E
 
-    <!-- Texto animado -->
-    <div id="animated-text" class="hidden-text"></div>
-    <div id="animated-text-2" class="hidden-text"></div>
-
-    <!-- Confetti -->
-    <script src="script.js"></script>
-
-    <!-- Firebase config -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+      
         const firebaseConfig = {
-            apiKey: "AIzaSyC6FRECKpv5heNAPYXx7lUkb3JS1nEkmK",
-            authDomain: "mapa-habitado-1b17d.firebaseapp.com",
-            databaseURL: "https://mapa-habitado-1b17d-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "mapa-habitado-1b17d",
-            storageBucket: "mapa-habitado-1b17d.appspot.com",
-            messagingSenderId: "432226666131",
-            appId: "1:432226666131:web:e2c04b2976b7c1a81c6f66"
+          apiKey: "AIzaSyCF6RECXpv5heNAPYxYx71Ukb3JS1nEmkM",
+          authDomain: "mapa-habitado-1b17d.firebaseapp.com",
+          databaseURL: "https://mapa-habitado-1b17d-default-rtdb.europe-west1.firebasedatabase.app/",
+          projectId: "mapa-habitado-1b17d",
+          storageBucket: "mapa-habitado-1b17d.firebasestorage.app",
+          messagingSenderId: "432226666131",
+          appId: "1:432226666131:web:e2c04b2976b7c1a81c6f66"
         };
-
+      
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-
-        // Hacemos accesible desde script.js
+      
+        // ✅ Exponer correctamente a nivel global
         window.firebaseDB = db;
         window.firebaseRef = ref;
         window.firebasePush = push;
         window.firebaseOnValue = onValue;
-    </script>
+      </script>
+      
 
-    <!-- Tu script principal (debe ir después de Firebase) -->
-    <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
 
-    <!-- Google Maps API (debe ir al final para llamar al callback initMap) -->
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVY02QDmfubvjexmPNj0P1oCefwD6ffkE&libraries=places&callback=initMap">
-    </script>
+   
+
 </body>
 </html>
