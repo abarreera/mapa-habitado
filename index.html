@@ -63,6 +63,29 @@
     <!-- API de Google Maps -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVY02QDmfubvjexmPNj0P1oCefwD6ffkE&libraries=places&callback=initMap"></script>
   
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC6FRECKpv5heNAPYXx7lUkb3JS1nEkmK",
+    authDomain: "mapa-habitado-1b17d.firebaseapp.com",
+    databaseURL: "https://mapa-habitado-1b17d-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "mapa-habitado-1b17d",
+    storageBucket: "mapa-habitado-1b17d.appspot.com",
+    messagingSenderId: "432226666131",
+    appId: "1:432226666131:web:e2c04b2976b7c1a81c6f66"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Exponemos para tu script.js
+  window.firebaseDB = db;
+  window.firebaseRef = ref;
+  window.firebasePush = push;
+  window.firebaseOnValue = onValue;
+</script>
 
 
 </body>
