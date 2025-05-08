@@ -15,6 +15,33 @@ async function initMap() {
       zoom: 12,
       mapId: "6bf319749ec8b051"
   });
+  const db = window.firebaseDB;
+const ref = window.firebaseRef;
+const onValue = window.firebaseOnValue;
+
+const markersRef = ref(db, "markers");
+
+onValue(markersRef, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+    const data = childSnapshot.val();
+
+    const marker = new google.maps.Marker({
+      position: { lat: data.lat, lng: data.lng },
+      map: map,
+      title: data.name,
+      animation: google.maps.Animation.DROP,
+    });
+
+    const infoWindow = new google.maps.InfoWindow({
+      content: `<strong>${data.name}</strong><br><p>${data.note}</p>`,
+    });
+
+    marker.addListener("click", () => {
+      infoWindow.open(map, marker);
+    });
+  });
+});
+
   
 
   function createMarker(position, label, title, content) {
