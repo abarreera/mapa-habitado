@@ -57,7 +57,7 @@
 /* Estilos generales del body */
 body {
     background: #ffffff;
-    font-family: 'fuente', sans-serif;
+    font-family: 'fuente', Arial;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
