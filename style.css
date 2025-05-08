@@ -53,11 +53,6 @@
     animation: blinkCursor 0.7s infinite;
 }
 
-/*  Carga de fuente personalizada */
-@font-face {
-    font-family: 'fuente';
-    
-}
 
 /* Estilos generales del body */
 body {
