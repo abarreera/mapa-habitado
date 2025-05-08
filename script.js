@@ -202,13 +202,12 @@ document.addEventListener("DOMContentLoaded", function () {
   modal.style.display = "none";
   
   //buscar con enter
-document.getElementById("searchBox").addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    document.getElementById("searchBtn").click();
-  }
-});
-
+  document.getElementById("searchBox").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      document.getElementById("searchBtn").click();
+    }
+  });
   // Al hacer clic en "Añadir Ubicación"
   
   document.getElementById("addLocationBtn").addEventListener("click", function () {
