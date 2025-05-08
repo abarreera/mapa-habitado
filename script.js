@@ -6,7 +6,7 @@ let addedMarkers = [];
 let lastAddedMarker =null;
 let tempLocation = null;
 
-
+/*  se inicia el mapa */
 async function initMap() {
   const { Map, places } = await google.maps.importLibrary("maps");
 
@@ -15,7 +15,8 @@ async function initMap() {
       zoom: 12,
       mapId: "6bf319749ec8b051"
   });
-  const db = window.firebaseDB;
+  /* visualiza marcadores en el mapa  */
+const db = window.firebaseDB;
 const ref = window.firebaseRef;
 const onValue = window.firebaseOnValue;
 
@@ -44,6 +45,7 @@ onValue(markersRef, (snapshot) => {
 
   
 
+/*  crea marcadores */
   function createMarker(position, label, title, content) {
       const marker = new google.maps.Marker({
           position,
@@ -198,6 +200,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Asegura que el modal esté oculto al cargar la página
   modal.style.display = "none";
+  
+  //buscar con enter
+document.getElementById("searchBox").addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("searchBtn").click();
+  }
+});
 
   // Al hacer clic en "Añadir Ubicación"
   
@@ -325,7 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
   
-  /* 🔹 Función para animación de escritura */
+  /* Función para animación de escritura */
   function startTypingEffect(elementId, messages) {
     const textElement = document.getElementById(elementId);
     let index = 0;
