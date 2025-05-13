@@ -324,9 +324,9 @@ document.addEventListener("DOMContentLoaded", function () {
         startTypingEffect("animated-text", ["Explora el mapa a través de tu propia habitabilidad"]);
     }
   
-    if (document.getElementById("animated-text-2")) {
-        startTypingEffect("animated-text-2", ["La vida real es solo una ventana más"]);
-    }
+   // if (document.getElementById("animated-text-2")) {
+       // startTypingEffect("animated-text-2", ["La vida real es solo una ventana más"]);
+    //}
   
     // Inicializa el mapa solo si está en la página del mapa
     if (document.getElementById("map")) {
