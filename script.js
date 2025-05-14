@@ -1,4 +1,3 @@
-
 /*  Código para el mapa */
 let map;
 let activeInfoWindow = null;
@@ -43,7 +42,7 @@ onValue(markersRef, (snapshot) => {
   });
 });
 
-  
+
 
 /*  crea marcadores */
   function createMarker(position, label, title, content) {
@@ -118,7 +117,7 @@ document.getElementById("searchBtn").addEventListener("click", () => {
                 const location = results[0].geometry.location;
                 map.setCenter(location);
                 map.setZoom(14);
-                
+
                 // Actualizar `Street View` con la dirección encontrada
                 updateStreetView(location);
             } else {
@@ -128,36 +127,39 @@ document.getElementById("searchBtn").addEventListener("click", () => {
     );
 });
 
-  
 
 
- createMarker({ lat: 39.480500228852904, lng: -0.3801835459098499 }, "⌂", "Tu casa nueva. Tu casa llena de vida",
+    // Lista de marcadores
+    createMarker({ lat: 39.480500228852904, lng: -0.3801835459098499 }, "⌂", "Tu casa nueva. Tu casa llena de vida",
       "<p>Desde Madrid traje a mi mejor amiga a vivir a este casa. Ahora vivimos en mi ciudad natal las cuatro. Ella, mis dos gatas y yo</p>");
-  
+
     createMarker({ lat: 39.424330473855335, lng: -0.3926034900899616 }, "⌂", "Av/Dr. Antonio Muñoz",
       "<p>La vista del tren desde el balcón. El banco de debajo de casa. La alquería reformada al otro lado de las vías. El otro lado del balcón.</p>");
-  
+
     createMarker({ lat: 39.47831752000949, lng: -0.4016914330893657 }, "⌂", "Hospital 9 d'octubre",
       "<p>Mi primera habitación. Pasé un tiempo extra aquí porque nací asfixiada con mi propio cordón umbilical...</p>");
-  
+
     createMarker({ lat: 39.41457386524401, lng: -0.39878186715367625 }, "⌂", "Carrer de Blasco Ibañez",
       "<p>Aquí venía solo los fines de semana desde 2007 hasta 2014.</p>");
-  
+
     createMarker({ lat: 40.39841836995521, lng: -3.699664293095911 }, "⌂", "Piso en Embajadores",
       "<p>La casa en la que vivía mi padre antes y meses después de tener una hija.</p>");
-  
+
     createMarker({ lat: 40.40904688715919, lng: -3.6991805425744846 }, "⌂", "Calle Salitre",
       "<p>Viviamos separadas pero juntas. Cuando no dormíamos juntas nos llamábamos llorando...</p>");
-  
+
     createMarker({ lat: 40.49279957696005, lng: -3.8761872327693303 }, "⌂", "Piso en Las Rozas",
       "<p>Esta fue la casa de mi abuela por parte paterna. Luego fue la casa de mi padre...</p>");
-  
- 
-  
+
+    createMarker({ lat: 40.403384085313625, lng: -3.665905002526079 }, "⌂", "Calle Tejar de la Pastora. Vallecas",
+      "<p>Me dijiste: vente a vivir conmigo. Y allí construimos un pequeño núcleo cálido...</p>");
+
+    createMarker({ lat: 40.4108170209775, lng: -3.7017369358467094 }, "⌂", "Calle Olivar. Lavapiés",
+      "<p>Un piso abuhardillado en el cual mi cuarto y el de Elena estaban literalmente conectados...</p>");
+
 
   connectButtons();
 }
-
 document.addEventListener('DOMContentLoaded', () => {
     const addLocationBtn = document.getElementById('addLocationBtn');
 
@@ -197,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Asegura que el modal esté oculto al cargar la página
   modal.style.display = "none";
-  
+
   //buscar con enter
   document.getElementById("searchBox").addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
@@ -206,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
   // Al hacer clic en "Añadir Ubicación"
-  
+
   document.getElementById("addLocationBtn").addEventListener("click", function () {
     const input = document.getElementById("searchBox").value;
     if (!input) return alert("Escribe una dirección primero.");
@@ -271,7 +273,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 });
 
-     // Cerrar la ventana emergente al hacer clic en la "X"
+
+
+  // Cerrar la ventana emergente al hacer clic en la "X"
   closeBtn.addEventListener("click", function () {
       modal.style.display = "none";
   });
@@ -318,27 +322,30 @@ document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("animated-text")) {
         startTypingEffect("animated-text", ["Explora el mapa a través de tu propia habitabilidad"]);
     }
-  
+
+    if (document.getElementById("animated-text-2")) {
+        startTypingEffect("animated-text-2", ["La vida real es solo una ventana más"]);
+    }
    // if (document.getElementById("animated-text-2")) {
        // startTypingEffect("animated-text-2", ["La vida real es solo una ventana más"]);
     //}
-  
+
     // Inicializa el mapa solo si está en la página del mapa
     if (document.getElementById("map")) {
         initMap();
     }
   });
-  
+
   /* Función para animación de escritura */
   function startTypingEffect(elementId, messages) {
     const textElement = document.getElementById(elementId);
     let index = 0;
     let charIndex = 0;
     let isDeleting = false;
-  
+
     function typeEffect() {
         const currentMessage = messages[index];
-  
+
         if (isDeleting) {
             textElement.textContent = currentMessage.substring(0, charIndex - 1);
             charIndex--;
@@ -346,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function () {
             textElement.textContent = currentMessage.substring(0, charIndex + 1);
             charIndex++;
         }
-  
+
         let speed = isDeleting ? 50 : 100;
         if (!isDeleting && charIndex === currentMessage.length) {
             speed = 2500;
@@ -356,10 +363,10 @@ document.addEventListener("DOMContentLoaded", function () {
             index = (index + 1) % messages.length;
             speed = 1000;
         }
-  
+
         setTimeout(typeEffect, speed);
     }
-  
+
     typeEffect();
   }
   //  guardar en base de datos
@@ -379,5 +386,5 @@ function guardarUbicacionEnFirebase(lat, lng, name, note) {
     }).catch((error) => {
         console.error("Error al guardar en Firebase:", error);
     });
-   
+
 }
