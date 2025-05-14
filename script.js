@@ -129,7 +129,8 @@ document.getElementById("searchBtn").addEventListener("click", () => {
 });
 
 
-
+ connectButtons();
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const addLocationBtn = document.getElementById('addLocationBtn');
