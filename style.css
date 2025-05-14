@@ -66,6 +66,18 @@ body {
     width: 100%;
     height: auto; 
 }
+/* Contenedor del texto de instrucciones */
+.instrucciones-container {
+  margin: 80px 40px;
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 600px;
+  text-align: left;
+}
+
+.instrucciones-container p {
+  margin-bottom: 16px; /* Espacio entre párrafos */
+}
 
 
 #map {
@@ -144,20 +156,6 @@ body {
 .navbar a.button-link:hover {
     filter: blur(2.5px);
 }
-
-/* Contenedor del texto de instrucciones */
-.instrucciones-container {
-  margin: 80px 40px;
-  font-size: 18px;
-  line-height: 1.6;
-  max-width: 600px;
-  text-align: left;
-}
-
-.instrucciones-container p {
-  margin-bottom: 16px; /* Espacio entre párrafos */
-}
-
 
 
 
