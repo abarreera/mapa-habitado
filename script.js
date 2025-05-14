@@ -1,11 +1,11 @@
-/*  Código para el mapa */
+//  Código para el mapa 
 let map;
 let activeInfoWindow = null;
 let addedMarkers = [];
 let lastAddedMarker =null;
 let tempLocation = null;
 
-/*  se inicia el mapa */
+// se inicia el mapa 
 async function initMap() {
   const { Map, places } = await google.maps.importLibrary("maps");
 
@@ -14,7 +14,7 @@ async function initMap() {
       zoom: 12,
       mapId: "6bf319749ec8b051"
   });
-  /* visualiza marcadores en el mapa  */
+  // visualiza marcadores en el mapa 
 const db = window.firebaseDB;
 const ref = window.firebaseRef;
 const onValue = window.firebaseOnValue;
@@ -88,13 +88,13 @@ onValue(markersRef, (snapshot) => {
     map.setStreetView(panorama);
 }
 
-//  Función para actualizar `Street View` cuando el usuario busca una dirección
+//  función para actualizar `Street View` cuando el usuario busca una dirección
 function updateStreetView(location) {
     const streetViewElement = document.getElementById("street-view");
 
     if (!streetViewElement) return;
 
-    //  Actualiza la posición de `Street View`
+    //  actualiza la posición de `Street View`
     const panorama = new google.maps.StreetViewPanorama(streetViewElement, {
         position: location,
         pov: { heading: 165, pitch: 0 },
@@ -104,7 +104,7 @@ function updateStreetView(location) {
     map.setStreetView(panorama);
 }
 
-//  Modifica la búsqueda para actualizar `Street View`
+//  Mdifica la búsqueda para actualizar `Street View`
 document.getElementById("searchBtn").addEventListener("click", () => {
     const input = document.getElementById("searchBox").value;
     if (!input) return;
@@ -191,14 +191,14 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("searchBtn").click();
     }
   });
-  // Al hacer clic en "Añadir Ubicación"
+  // al hacer clic en "Añadir Ubicación"
 
   document.getElementById("addLocationBtn").addEventListener("click", function () {
     const input = document.getElementById("searchBox").value;
     if (!input) return alert("Escribe una dirección primero.");
 
     const searchService = new google.maps.places.PlacesService(map);
-    const modal = document.getElementById("customModal"); // ✅ aquí definimos modal
+    const modal = document.getElementById("customModal"); // aqui definimos modal
 
     searchService.findPlaceFromQuery(
         {
@@ -259,15 +259,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  // Cerrar la ventana emergente al hacer clic en la "X"
+  // cerrar la ventana emergente al hacer clic en la "X"
   closeBtn.addEventListener("click", function () {
       modal.style.display = "none";
   });
 });
 document.getElementById("removeLastMarkerBtn").addEventListener("click", function () {
     if (lastAddedMarker) {
-        lastAddedMarker.setMap(null); // Elimina solo el último marcador
-        lastAddedMarker = null; // Restablece la variable
+        lastAddedMarker.setMap(null); // elimina solo el último marcador
+        lastAddedMarker = null; // restablece la variabl
     }
 });
 
@@ -275,7 +275,7 @@ document.getElementById("removeLastMarkerBtn").addEventListener("click", functio
 
 
 
-/*  Conectar botones de navegación */
+// conectar botones de navegación 
 function connectButtons() {
   document.getElementById("btnLocation1")?.addEventListener("click", function () {
       map.setCenter({ lat: 39.46975, lng: -0.37739 });
@@ -288,8 +288,8 @@ function connectButtons() {
   });
 
   document.getElementById("btnGlobalView")?.addEventListener("click", function () {
-      map.setCenter({ lat: 39.0, lng: -3.0 });
-      map.setZoom(6);
+      map.setCenter({ lat: 20.0, lng: 0.0 }); 
+      map.setZoom(2); 
   });
 }
 
@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
        // startTypingEffect("animated-text-2", ["La vida real es solo una ventana más"]);
     //}
 
-    // Inicializa el mapa solo si está en la página del mapa
+    // Inicia el mapa solo si está en la página del mapa
     if (document.getElementById("map")) {
         initMap();
     }
