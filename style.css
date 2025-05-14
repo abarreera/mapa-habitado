@@ -349,29 +349,27 @@ body {
   }
 
   .navbar {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 10px;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: white; /* Asegura que cubra el contenido */
+    background-color: white;
     z-index: 1000;
+    padding: 10px;
+    min-height: 60px; /* o la altura que tenga realmente */
   }
 
   .navbar button {
     font-size: 18px;
   }
 
-  .instrucciones-container {
+ .instrucciones-container {
+    margin-top: 80px; /* O más, si tu navbar es más alta */
     max-width: 100%;
-    margin: 100px 10px 20px; /* margen superior aumentado para evitar solapamiento */
+    margin-left: 10px;
+    margin-right: 10px;
     font-size: 16px;
-    line-height: 1.6;
   }
-}
+
 
 }
