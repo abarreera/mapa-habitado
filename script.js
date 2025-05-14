@@ -125,10 +125,20 @@ document.getElementById("searchBtn").addEventListener("click", () => {
                 console.error("No se encontró la dirección");
             }
         }
-    );}
+    );
+});
+
+  
 
 
- connectButtons();
+    // Lista de marcadores
+  
+    createMarker({ lat: 40.49279957696005, lng: -3.8761872327693303 }, "⌂", "Piso en Las Rozas",
+      "<p>Esta fue la casa de mi abuela por parte paterna. Luego fue la casa de mi padre...</p>");
+  
+
+
+  connectButtons();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
