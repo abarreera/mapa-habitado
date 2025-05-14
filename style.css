@@ -356,11 +356,18 @@ body {
     background-color: white;
     z-index: 1000;
     padding: 10px;
-    min-height: 60px; /* o la altura que tenga realmente */
+    min-height: 60px;
+
+    display: flex;           
+    flex-wrap: wrap;           
+    justify-content: center;   
+    gap: 10px;                 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
   }
 
   .navbar button {
-    font-size: 18px;
+    font-size: 16px;
+    padding: 6px 12px;
   }
 
  .instrucciones-container {
