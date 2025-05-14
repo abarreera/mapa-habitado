@@ -271,17 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 });
 
-    createMarker({ lat: 40.49279957696005, lng: -3.8761872327693303 }, "⌂", "Piso en Las Rozas",
-      "<p>Esta fue la casa de mi abuela por parte paterna. Luego fue la casa de mi padre...</p>");
-  
-    
-  
-
-  connectButtons();
-}
-
-
-  // Cerrar la ventana emergente al hacer clic en la "X"
+     // Cerrar la ventana emergente al hacer clic en la "X"
   closeBtn.addEventListener("click", function () {
       modal.style.display = "none";
   });
