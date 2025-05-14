@@ -288,9 +288,15 @@ function connectButtons() {
   });
 
   document.getElementById("btnGlobalView")?.addEventListener("click", function () {
-      map.setCenter({ lat: 20.0, lng: 0.0 }); 
-      map.setZoom(2); 
-  });
+    const bounds = {
+        east: 180,
+        north: 85,
+        south: -85,
+        west: -180
+    };
+
+    map.fitBounds(bounds);
+});
 }
 
 document.addEventListener("DOMContentLoaded", function () {
