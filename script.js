@@ -125,8 +125,7 @@ document.getElementById("searchBtn").addEventListener("click", () => {
                 console.error("No se encontró la dirección");
             }
         }
-    );
-});
+    );}
 
 
  connectButtons();
