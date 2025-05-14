@@ -36,8 +36,12 @@ onValue(markersRef, (snapshot) => {
       content: `<strong>${data.name}</strong><br><p>${data.note}</p>`,
     });
 
-    marker.addListener("click", () => {
+     marker.addListener("click", () => {
+      if (activeInfoWindow) {
+        activeInfoWindow.close();
+      }
       infoWindow.open(map, marker);
+      activeInfoWindow = infoWindow;
     });
   });
 });
